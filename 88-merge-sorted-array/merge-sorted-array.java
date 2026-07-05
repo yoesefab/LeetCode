@@ -1,33 +1,20 @@
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        
-        int x = nums1.length ; 
+        int i = m - 1; // last element in nums1
+        int j = n - 1; // last element in nums2
+        int k = m + n - 1; // last position in nums1
 
-        // Remove placeholders 
-        for (int i = m ; i < x ; i++) {
-            nums1[i] = nums2[i-m];
+        while (i >= 0 && j >= 0) {
+            if (nums1[i] > nums2[j]) {
+                nums1[k--] = nums1[i--];
+            } else {
+                nums1[k--] = nums2[j--];
+            }
         }
 
-        // Sorting 
-        int i, j, temp;
-        boolean swapped;
-        for (i = 0; i < x ; i++) {
-            swapped = false;
-            for (j = 0; j < x - i - 1; j++) {
-                if (nums1[j] > nums1[j + 1]) {
-                    
-                    // Swap arr[j] and arr[j+1]
-                    temp = nums1[j];
-                    nums1[j] = nums1[j + 1];
-                    nums1[j + 1] = temp;
-                    swapped = true;
-                }
-            }
-
-            // If no two elements were
-            // swapped by inner loop, then break
-            if (swapped == false)
-                break;
+        // If nums2 still has elements
+        while (j >= 0) {
+            nums1[k--] = nums2[j--];
         }
     }
 }
